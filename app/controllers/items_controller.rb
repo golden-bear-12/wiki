@@ -25,10 +25,12 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
+    authorize @item
   end
 
   def update
     @item = Item.find(params[:id])
+    authorize @item
     if @item.update_attributes(item_params)
      flash[:notice] = "Wiki was updated successfully."
       redirect_to @item
@@ -40,6 +42,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
+    authorize @item
     if @item.destroy
       flash[:notice] = "\"#{@item.title}\" was deleted successfully."
       redirect_to items_path
